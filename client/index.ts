@@ -48,7 +48,7 @@ export class Verbinden {
     switch (message.type) {
       case "list":
         this._members = message.data;
-        this.observables.__member_changed__.forEach(cb => cb("__server__", this._members));
+        (this.observables.__member_changed__ || []).forEach(cb => cb("__server__", this._members));
         return;
       default:
         this.observables[message.channel].forEach(cb => cb(message.id, message.data));
