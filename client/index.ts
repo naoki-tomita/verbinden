@@ -30,7 +30,7 @@ type Callback =  (from: string, data: any) => void;
 export class Verbinden {
   private id: string;
   private client: WebSocket;
-  private members: string[] = [];
+  members: string[] = [];
   private observables: { [channel: string]: Callback[] } = {}
   constructor(url: string) {
     this.id = Math.random().toString(32).substring(2);
