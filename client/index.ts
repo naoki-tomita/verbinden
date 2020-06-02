@@ -28,13 +28,18 @@ type Message = TargetMessage | BroadcastMessage | ListingMessage;
 type Callback =  (from: string, data: any) => void;
 
 export class Verbinden {
-  private id: string;
+  private _id: string;
+  get id() { return this._id }
+
   private client: WebSocket;
-  members: string[] = [];
+
+  private _members: string[] = [];
+  get members() { return this._members.filter(id => id !== this.id) }
+
   private observables: { [channel: string]: Callback[] } = {}
   constructor(url: string) {
-    this.id = Math.random().toString(32).substring(2);
-    this.client = new WebSocket(`${url}?id=${this.id}`);
+    this._id = Math.random().toString(32).substring(2);
+    this.client = new WebSocket(`${url}?id=${this._id}`);
     this.client.addEventListener("message", this.receiveMessage.bind(this));
   }
 
@@ -42,8 +47,8 @@ export class Verbinden {
     const message = JSON.parse(e.data) as Message & Response;
     switch (message.type) {
       case "list":
-        this.members = message.data;
-        this.observables.__member_changed__.forEach(cb => cb("__server__", this.members));
+        this._members = message.data;
+        this.observables.__member_changed__.forEach(cb => cb("__server__", this._members));
         return;
       default:
         this.observables[message.channel].forEach(cb => cb(message.id, message.data));
