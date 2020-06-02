@@ -2,7 +2,10 @@
   "name": "verbinden",
   "version": "0.0.2",
   "main": "dist/index.js",
-  "exports": "dist/",
+  "exports": {
+    "server": "dist/server",
+    "client": "dist/client"
+  },
   "license": "MIT",
   "dependencies": {
     "typescript": "^3.9.3",
