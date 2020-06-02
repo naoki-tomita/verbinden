@@ -1,0 +1,17 @@
+{
+  "name": "verbinden",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "exports": "dist/",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^3.9.3",
+    "ws": "^7.3.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^7.2.4"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
+}
